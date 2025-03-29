@@ -1,0 +1,24 @@
+{
+  "name": "portfolio-acyc",
+  "version": "1.0.0",
+  "description": "Personal portfolio",
+  "homepage": "https://github.com/Cl0udC0der/Projects#readme",
+  "bugs": {
+    "url": "https://github.com/Cl0udC0der/Projects/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cl0udC0der/Projects.git"
+  },
+  "license": "ISC",
+  "author": "Armand Codera",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.21.2"
+  }
+}
