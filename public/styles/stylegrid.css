@@ -1,0 +1,77 @@
+:root {
+  --primary-color: #DFAA33;
+  --secondary-color: #EFEFF1;
+  --tertiary-color: #1F1F23;
+  --bg: #0E0E10;
+  --fg: #e3e3e3;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.container {}
+
+.content {
+  display: grid;
+  grid-template-columns: repeat(3, 200px);
+  grid-template-rows: repeat(3, 200px);
+  gap: 1em;
+
+  grid-template-areas:
+    "exp soc soc"
+    "exp pic desc"
+    "exp box desc";
+
+  @media (max-width: 600px) {
+    grid-template-columns: repeat(2, clamp(140px, 40vw, 280px));
+    grid-template-rows: repeat(5, 200px);
+    grid-template-areas:
+      "exp exp"
+      "exp exp"
+      "soc soc"
+      "pic box"
+      "desc desc";
+  }
+
+  @media (min-width: 601px) and (max-width:1200px) {
+    grid-template-columns: repeat(3, clamp(200px, 30vw, 300px));
+    grid-template-rows: repeat(3, 200px);
+
+    grid-template-areas:
+      "exp soc soc"
+      "exp pic desc"
+      "exp box desc";
+
+  }
+}
+
+.layer {
+  background-color: blueviolet;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 100%;
+}
+
+.socials {
+  height: 50px;
+  width: auto;
+}
+
+.pic-container {
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  width: 50px;
+}
+
+.pic {
+  color: red;
+}

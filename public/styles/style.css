@@ -1,158 +1,132 @@
-html,
-body {
-	margin: 0;
-	height: 150vh;
-}
-
-header {
-	margin-top: 5vh;
-}
-
-/* -------Gridlines------- */
-
-/* Settings */
 :root {
-    --offset: 1.5rem;
-    --max_width: 72rem;
-    --columns: 6;
-    --gutter: .5rem;
-    --baseline: 1rem;
-    --baseline-shift: calc(var(--baseline) / 2);
-    --line-thickness: 1px;
-    --color: hsla(204, 80%, 72%, 0.25);
-    --color-text: hsla(204, 80%, 72%, 1);
-    --media-query: 'base';
-  }
-  
-  @media (min-width: 35em) {
-    :root {
-      --offset: 2rem;
-      --gutter: .75rem;
-      --baseline: 1.5rem;
-      --color: hsla(286, 51%, 44%, 0.25);
-      --color-text: hsla(286, 51%, 44%, 1);
-      --media-query: 'Medium (768px)';
-    }
-  }
-  
-  @media (min-width: 48em) {
-    :root {
-      --offset: 3rem;
-      --columns: 12;
-      --gutter: 1rem;
-      --baseline: 2rem;
-      --color: hsla(204, 80%, 72%, 0.25);
-      --color-text: hsla(204, 80%, 72%, 1);
-      --media-query: 'Large (992px)';
-    }
-  }
-  
-  @media (min-width: 70em) {
-    :root {
-      --offset: 4rem;
-	  --columns: 14;
-      --baseline: 3rem;
-      --color: hsla(286, 51%, 44%, 0.25);
-      --color-text: hsla(286, 51%, 44%, 1);
-      --media-query: 'Extra Large (1200px)';
-    }
+  --primary-color: #DFAA33;
+  --secondary-color: #EFEFF1;
+  --tertiary-color: #0E0E10;
+  --quaternary-color: #1F1F23;
+
+  --space: 1rem;
+  --bg: #09090b;
+  --fg: #e3e3e3;
+  --surface-1: #101012;
+  --surface-2: #27272a;
+  --surface-3: #52525b;
+  --ease-out: cubic-bezier(0.5, 1, 0.89, 1);
+  --ease-in-out: cubic-bezier(0.45, 0, 0.55, 1);
+}
+
+
+* {
+  box-sizing: border-box;
+}
+
+height,
+body {
+  height: 90%;
+}
+
+body {
+  display: flex;
+  color: var(--fg);
+  background: var(--bg);
+  padding: var(--space);
+  min-height: 100vh;
+  padding: 2%
+}
+
+main {
+  display: grid;
+  grid-template-columns: repeat(var(--count, 1), 1fr);
+  gap: var(--space);
+  margin: auto;
+  inline-size: min(var(--max, 15rem), 100%);
+
+  @media (min-width: 25rem) {
+    --count: 2;
+    --max: 30rem;
   }
 
-  @media (min-width: 1400px) {
-    :root {
-      --offset: 4rem;
-      --baseline: 3rem;
-      --color: hsla(286, 51%, 44%, 0.25);
-      --color-text: rgb(92, 10, 117);
-      --media-query: 'Ex2 Large (1400px)';
-    }
+  @media (min-width: 45rem) {
+    --count: 4;
+    --max: 60rem;
   }
-  
-  
-  /* Helper variables */
-  :root {
-    --repeating-width: calc(100% / var(--columns));
-    --column-width: calc((100% / var(--columns)) - var(--gutter));
-    --background-width: calc(100% + var(--gutter));
-    --background-columns: repeating-linear-gradient(
-      to right,
-      var(--color),
-      var(--color) var(--line-thickness),
-      transparent var(--line-thickness),
-      transparent calc(var(--column-width) - var(--line-thickness)),
-      var(--color) calc(var(--column-width) - var(--line-thickness)),
-      var(--color) var(--column-width),
-      transparent var(--column-width),
-      transparent var(--repeating-width)
-    );
-    --background-baseline: repeating-linear-gradient(
-      to bottom,
-      var(--color),
-      var(--color) 1px,
-      transparent 1px,
-      transparent var(--baseline)
-    );
-  }
-  
-  html {
-    position: relative;
-  }
-  
-  html::before {
+}
+
+.card {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-template-areas: "card";
+  place-items: center;
+  aspect-ratio: 4/5;
+  border: 1px solid var(--surface-2);
+  isolation: isolate;
+  transition: border-color 200ms var(--ease-out);
+  user-select: none;
+
+  &::before {
+    content: "";
     position: absolute;
-    top: 0; right: 0; bottom: 0; left: 0;
-    margin-right: auto;
-    margin-left: auto;
-    width: calc(100% - (2 * var(--offset)));
-    max-width: var(--max_width);
-    min-height: 100vh;
-    content: '';
-    background-image: var(--background-columns), var(--background-baseline);  
-    background-size: var(--background-width) 100%;
-    background-position: 0 var(--baseline-shift);
-    z-index: 1000;
+    inset: 0;
+    background: radial-gradient(
+      circle at bottom left,
+      transparent 55%,
+      var(--surface-1)
+    );
     pointer-events: none;
-  }
-  
-  html::after {
-    content: var(--media-query);
-    position: fixed;
-    bottom: 1rem;
-    left: 1rem;
-    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
-    color: var(--color-text);
+    box-shadow: var(--bg) -0.5cqi 0.5cqi 2.5cqi inset;
+    transition: opacity 900ms var(--ease-out);
   }
 
-/* .content{
-    color: #FFFFFF;
-    font-size: 26px;
-    font-weight: bold;
-    text-shadow: -1px -1px 1px #000, 1px 1px 1px #000;
-    position: relative;
-    z-index: 100;
-}
-
-.background{
-    color: #999999;
+  &::after {
+    content: "";
     position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -100;
-}
+    inset: 0;
+    margin: auto;
+    aspect-ratio: 1;
+    background: radial-gradient(circle, var(--bg), transparent 65%);
+    opacity: 0;
+    transition: opacity 800ms var(--ease-out);
+  }
 
-#wrapper{
+  > * {
+    grid-area: card;
+  }
+
+  svg {
     position: relative;
-    width: 200px;
-    height: 200px;
-} */
+    z-index: 1;
+    width: 30%;
+    height: auto;
+    color: var(--surface-3);
+    transition: 300ms var(--ease-out);
+    transition-property: color, scale;
+  }
 
-/* -------Background Image------- */
+  button {
+    opacity: 0;
+  }
 
-#honeycomb {
-	width: 100%;
-	height: 100%;
-	background: center url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='rgb(40,40,40)' viewBox='0 0 100 169.5'%3E%3Cpolygon points='50,34.75 93.5,59.75 93.5,109.75 50,134.75 6.5,109.75 6.5,59.75'%3E%3C/polygon%3E%3Cpolygon points='0,-50 43.5,-25 43.5,25 0,50 -43.5,25 -43.5,-25'%3E%3C/polygon%3E%3Cpolygon points='100,-50 143.5,-25 143.5,25 100,50 56.5,25 56.5,-25'%3E%3C/polygon%3E%3Cpolygon points='0,119.5 43.5,144.5 43.5,194.5 0,219.5 -43.5,194.5 -43.5,144.5'%3E%3C/polygon%3E%3Cpolygon points='100,119.5 143.5,144.5 143.5,194.5 100,219.5 56.5,194.5 56.5,144.5'%3E%3C/polygon%3E%3C/svg%3E");
-	background-size: 32px;
-	z-index: 1;
+  &:focus-within {
+    outline: 5px auto Highlight;
+    outline: 5px auto -webkit-focus-ring-color;
+  }
+
+  &:where(:hover, :focus-within) {
+    border-color: var(--active-color, var(--fg));
+    transition: border-color 800ms var(--ease-in-out);
+  }
+
+  &:where(:hover, :focus-within) svg {
+    color: var(--active-color, var(--fg));
+    scale: 1.1;
+    transition: 300ms var(--ease-in-out);
+  }
+
+  &:where(:hover, :focus-within)::before {
+    opacity: 0;
+  }
+
+  &:where(:hover, :focus-within)::after {
+    opacity: 1;
+  }
 }
-
