@@ -1,14 +1,51 @@
 :root {
-  --primary-color: #DFAA33;
-  --secondary-color: #EFEFF1;
+  --primary-color: #EFEFF1;
+  --secondary-color: #ffffff8e;
   --tertiary-color: #1F1F23;
   --bg: #0E0E10;
   --fg: #e3e3e3;
-  --fade-amount: 40%;
 
-  --primariy-font: 'Lucida Console', 'Courier New', monospace;
+
+  --primary-font: 'Lucida Console', 'Courier New', monospace;
   --secondary-font: 'Courier New', monospace;
+  --fade-amount: 40%;
+}
 
+html {
+  color-scheme: light dark;
+  --background: light-dark(var(--secondary-color), var(--tertiary-color));
+  --text: light-dark(var(--tertiary-color), var(--secondary-color));
+}
+
+#theme-toggle {
+  height: 50px;
+  width: 50px;
+  background-color: transparent;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-color: transparent !important;
+}
+
+#theme-switch img:last-child {
+  display: none;
+}
+
+#theme-switch svg {
+  fill: var(--primary-color);
+}
+
+#theme-switch svg:last-child {
+  display: none;
+}
+
+.darkmode #theme-switch svg:first-child {
+  display: none;
+}
+
+.darkmode #theme-switch svg:last-child {
+  display: block;
 }
 
 body {
@@ -21,28 +58,31 @@ body {
   position: relative;
 }
 
+
+
 .content {
   flex-grow: 1;
   display: grid;
   grid-template-columns: repeat(3, 200px);
   grid-template-rows: repeat(3, 200px);
   gap: 1em;
+  overflow: visible;
 
   grid-template-areas:
-    "exp soc soc"
-    "exp pic desc"
-    "exp box desc";
+    "exp desc desc"
+    "exp pic soc"
+    "exp box soc";
 
   @media (max-width: 650px) {
-    grid-template-columns: repeat(2, clamp(140px, 40vw, 280px));
-    grid-template-rows: repeat(5, clamp(140px, 40vw, 280px));
+    grid-template-columns: repeat(2, clamp(140px, 30vw, 280px));
+    grid-template-rows: repeat(6, clamp(140px, 30vw, 280px));
     grid-template-areas:
       "exp exp"
       "exp exp"
       "exp exp"
-      "soc soc"
+      "desc desc"
       "pic box"
-      "desc desc";
+      "soc soc";
   }
 
   @media (min-width: 651px) and (max-width:1200px) {
@@ -50,9 +90,9 @@ body {
     grid-template-rows: repeat(3, 200px);
 
     grid-template-areas:
-      "exp soc soc"
-      "exp pic desc"
-      "exp box desc";
+      "exp desc desc"
+      "exp pic soc"
+      "exp box soc";
 
   }
 }
@@ -60,12 +100,21 @@ body {
 /* Individual Cards */
 
 .layer {
-  background-color: rgb(42, 43, 44);
+  background-color: linear-gradient(to);
+  border: 2px solid var(--primary-color);
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100%;
-  font-family: var(--primariy-font);
+  font-family: var(--primary-font);
+  border-radius: 20px;
+}
+
+.layer:hover {
+  z-index: 10;
+  cursor: pointer;
+  transform: rotateY(360deg);
+  transition: transform 1s;
 }
 
 /* Experience Box */
@@ -83,24 +132,47 @@ body {
   height: 100%;
 }
 
-.exp>h1 {}
+.exp>div {
+  padding: 0.25em;
+}
 
 
 /* Socials Box */
 
 .soc {
+  flex-flow: column nowrap;
   justify-content: space-evenly;
+
+  @media (max-width: 650px) {
+    flex-flow: row wrap;
+  }
 }
 
+
 .socials {
-  height: 50px;
+  cursor: pointer;
+  height: 45px;
   width: auto;
+  color: var(--primary-color);
 }
+
+#theme-toggle {
+  height: 50px;
+  width: 50px;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#theme-toggle svg {}
+
 
 /* Pictures Box */
 
 .pic-container {
-  background-color: rgb(251, 246, 255);
+  background-color: var(--primary-color);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -108,6 +180,12 @@ body {
   width: 80%;
   border-radius: 50%;
   /* -webkit-mask-image: radial-gradient(circle, black 65%, black 10%, transparent 70%, transparent 85%); */
+  transition: transform 1s;
+}
+
+.pic-container:hover {
+  transform: rotateY(360deg);
+  transition: transform 1s;
 }
 
 .photo {
@@ -117,14 +195,11 @@ body {
 
 /* Desc Box */
 
-.desc {}
-
 .desc>p {
-  font-size: 1em;
+  font-size: 14px;
   font-family: var(--primary-font);
   text-align: justify;
   margin: 1em;
-  font-size: 0.8em;
 }
 
 /* Box Box? */
