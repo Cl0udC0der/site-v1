@@ -5,6 +5,10 @@
   --bg: #0E0E10;
   --fg: #e3e3e3;
   --fade-amount: 40%;
+
+  --primariy-font: 'Lucida Console', 'Courier New', monospace;
+  --secondary-font: 'Courier New', monospace;
+
 }
 
 body {
@@ -14,9 +18,11 @@ body {
   justify-content: center;
   height: 100vh;
   margin: 0;
+  position: relative;
 }
 
 .content {
+  flex-grow: 1;
   display: grid;
   grid-template-columns: repeat(3, 200px);
   grid-template-rows: repeat(3, 200px);
@@ -31,6 +37,7 @@ body {
     grid-template-columns: repeat(2, clamp(140px, 40vw, 280px));
     grid-template-rows: repeat(5, clamp(140px, 40vw, 280px));
     grid-template-areas:
+      "exp exp"
       "exp exp"
       "exp exp"
       "soc soc"
@@ -58,12 +65,13 @@ body {
   align-items: center;
   justify-content: center;
   height: 100%;
+  font-family: var(--primariy-font);
 }
 
 /* Experience Box */
 .vl {
   border-left: 1px solid rgba(255, 255, 255, 0.2);
-  height: 8%;
+  height: 5%;
 }
 
 .exp {
@@ -71,8 +79,11 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  text-align: center;
   height: 100%;
 }
+
+.exp>h1 {}
 
 
 /* Socials Box */
@@ -104,6 +115,18 @@ body {
   color: red;
 }
 
+/* Desc Box */
+
+.desc {}
+
+.desc>p {
+  font-size: 1em;
+  font-family: var(--primary-font);
+  text-align: justify;
+  margin: 1em;
+  font-size: 0.8em;
+}
+
 /* Box Box? */
 .box {
   display: flex;
@@ -112,9 +135,9 @@ body {
   align-items: center;
 }
 
-/* Footer */
 footer {
+  display: flex;
+  bottom: 5px;
   position: absolute;
   bottom: 5px;
-  margin-top: 5%;
 }
