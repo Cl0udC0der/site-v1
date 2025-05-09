@@ -1,1 +1,3 @@
-CV test for website creation practice
+v1 of Personal Website. 
+
+Made with Vanilla HTML/CSS. 
