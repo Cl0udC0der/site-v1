@@ -2,6 +2,8 @@
   --primary-color: #EFEFF1;
   --secondary-color: #ffffff8e;
   --tertiary-color: #1F1F23;
+  --accent-color: #FFFFFF;
+  --accent-color-2: #505A5B;
   --bg: #0E0E10;
   --fg: #e3e3e3;
 
@@ -56,8 +58,8 @@ body {
   height: 100vh;
   margin: 0;
   position: relative;
+  background-color: var(--bg);
 }
-
 
 
 .content {
@@ -99,8 +101,14 @@ body {
 
 /* Individual Cards */
 
+@property --gradient-angle {
+  syntax: "<angle>";
+  initial-value: 0turn;
+  inherits: false;
+}
+
 .layer {
-  background-color: linear-gradient(to);
+  background-color: var(--bg);
   border: 2px solid var(--primary-color);
   display: flex;
   align-items: center;
@@ -110,17 +118,41 @@ body {
   border-radius: 20px;
 }
 
-.layer:hover {
+.layer:hover,
+.layer:focus {
   z-index: 10;
-  cursor: pointer;
-  transform: rotateY(360deg);
-  transition: transform 1s;
+  transform: scale(105%);
+  transition: transform .2s;
+
+  animation: 2s gradient-angle infinite linear;
+  border: 2px solid transparent;
+  background-image: linear-gradient(var(--bg), var(--tertiary-color)),
+    conic-gradient(from var(--gradient-angle),
+      #FFFFFF 0%,
+      #505A5B 37%,
+      #ACADBC 30%,
+      #505A5B 33%,
+      #FFFFFF 40%,
+      #FFFFFF 50%,
+      #505A5B 77%,
+      #ACADBC 80%,
+      #505A5B 83%,
+      #FFFFFF 90%);
+  background-clip: padding-box, border-box;
+  background-origin: padding-box, border-box;
+}
+
+@keyframes gradient-angle {
+  to {
+    --gradient-angle: 1turn;
+  }
 }
 
 /* Experience Box */
 .vl {
   border-left: 1px solid rgba(255, 255, 255, 0.2);
   height: 5%;
+  padding: 0 !important;
 }
 
 .exp {
@@ -133,7 +165,7 @@ body {
 }
 
 .exp>div {
-  padding: 0.25em;
+  padding: 1em;
 }
 
 
@@ -154,6 +186,51 @@ body {
   height: 45px;
   width: auto;
   color: var(--primary-color);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform-origin: bottom;
+  position: relative;
+}
+
+.socials:hover {
+  -webkit-transform: scale3d(1.2, 1.2, 1.2);
+  transform: scale3d(5);
+}
+
+.tooltip {
+  position: relative;
+
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.tooltip::before,
+.tooltip::after {
+  --scale: 0;
+  position: absolute;
+  left: 3rem;
+  top: -1.2rem;
+  border-radius: 15px;
+  padding: 0.4rem;
+  transform: translateX(-50%) translateY(-80%) scale(var(--scale));
+  transition: 150ms transform;
+  transform-origin: bottom;
+}
+
+.tooltip::before {
+  content: attr(data-tooltip);
+  color: var(--bg);
+  font-size: 0.8em;
+  /* font-family: var(--primary-font); */
+  text-align: center;
+  width: 100%;
+  max-width: max-content;
+  background: var(--primary-color);
+}
+
+.tooltip:hover::before {
+  width: max-content;
+  --scale: 1;
 }
 
 #theme-toggle {
@@ -165,8 +242,6 @@ body {
   justify-content: center;
   align-items: center;
 }
-
-#theme-toggle svg {}
 
 
 /* Pictures Box */
@@ -184,7 +259,7 @@ body {
 }
 
 .pic-container:hover {
-  transform: rotateY(360deg);
+  transform: rotateY(180deg);
   transition: transform 1s;
 }
 
