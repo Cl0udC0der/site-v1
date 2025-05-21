@@ -11,6 +11,12 @@
   --primary-font: 'Lucida Console', 'Courier New', monospace;
   --secondary-font: 'Courier New', monospace;
   --fade-amount: 40%;
+
+  --clr-1: #052b2f;
+  --clr-2: #073438;
+  --clr-3: #0e4b50;
+  --clr-4: #2d8f85;
+  --clr-5: #637c54;
 }
 
 html {
@@ -18,6 +24,8 @@ html {
   --background: light-dark(var(--primary-color), var(--tertiary-color));
   --text: light-dark(var(--tertiary-color), var(--primary-color));
 }
+
+body {}
 
 #theme-toggle {
   height: 50px;
@@ -101,9 +109,9 @@ body {
 
 /* Individual Cards */
 
-@property --gradient-angle {
+@property --rotate {
   syntax: "<angle>";
-  initial-value: 0turn;
+  initial-value: 132deg;
   inherits: false;
 }
 
@@ -116,34 +124,51 @@ body {
   height: 100%;
   font-family: var(--primary-font);
   border-radius: 20px;
+  position: relative;
 }
 
 .layer:hover,
 .layer:focus {
-  z-index: 10;
+  border-width: 0;
+  z-index: 1;
   transform: scale(105%);
   transition: transform .2s;
-
-  animation: 2s gradient-angle infinite linear;
-  border: 2px solid transparent;
-  background-image: linear-gradient(light-dark(var(--primary-color), var(--tertiary-color)), light dark(var(--fg), var(--bg)),
-      #FFFFFF 0%,
-      #505A5B 37%,
-      #ACADBC 30%,
-      #505A5B 33%,
-      #FFFFFF 40%,
-      #FFFFFF 50%,
-      #505A5B 77%,
-      #ACADBC 80%,
-      #505A5B 83%,
-      #FFFFFF 90%);
-  background-clip: padding-box, border-box;
-  background-origin: padding-box, border-box;
 }
 
-@keyframes gradient-angle {
-  to {
-    --gradient-angle: 1turn;
+.layer:hover::before,
+.layer:focus::before {
+  content: "";
+  width: inherit;
+  height: inherit;
+  inset: 0;
+  position: absolute;
+  border-radius: 20px;
+  z-index: -1;
+  background-image: linear-gradient(var(--rotate), #5ddcff, #3c67e3 43%, #4e00c2);
+  animation: spin 5s linear infinite;
+}
+
+/* .layer:hover,
+.layer:focus {
+  width: inherit;
+  height: inherit;
+  z-index: -1;
+  transform: scale(110%);
+  background-image: linear-gradient(var(--rotate), #5ddcff, #3c67e3 43%, #4e00c2);
+  position: absolute;
+  z-index: -1;
+  top: -1%;
+  left: -2%;
+  animation: spin 2.5s linear infinite;
+} */
+
+@keyframes spin {
+  0% {
+    --rotate: 0deg;
+  }
+
+  100% {
+    --rotate: 360deg;
   }
 }
 
